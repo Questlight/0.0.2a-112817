@@ -7,7 +7,25 @@ echo Made by N3, version 0.0.3 ALPHA
 echo/
 echo This is an ALPHA build. This means that they're most likley quite a few bugs! Less than 5 percent of the game has currently been added.
 pause
-goto :name
+goto :saveDetector
+
+:saveDetector
+if exist %USERPROFILE%/Desktop/savefile.txt (
+ goto :saveDetectorName
+) else (
+ goto :name
+	:saveDetectorName
+		if exist %USERPROFILE%/Desktop/savename.txt (
+		set /P c=Save detected. Would you like to load it?[Y/N]
+			if /I "%c%" EQU "Y" goto :saveloader
+			if /T "%c%" EQU "N" goto :choice
+			goto :saveDetectorName
+			) else (
+			goto :noName
+				:saveloader
+					set /p save=<savefile.txt
+					set /p name=<savename.txt
+					goto :%save%
 
 :name
 set /P Player1= What is your name? 
