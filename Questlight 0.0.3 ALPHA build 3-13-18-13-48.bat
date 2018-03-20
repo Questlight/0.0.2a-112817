@@ -1,4 +1,3 @@
-
 @echo off
 color 6f
 title Questlight 0.0.3 ALPHA
@@ -8,29 +7,11 @@ echo Made by N3, version 0.0.3 ALPHA
 echo/
 echo This is an ALPHA build. This means that they're most likley quite a few bugs! Less than 5 percent of the game has currently been added.
 pause
-goto :saveDetector
-
-:saveDetector
-if exist %USERPROFILE%/Desktop/savefile.txt (
- goto :saveDetectorName
-) else (
- goto :name )
-	:saveDetectorName
-		if exist %USERPROFILE%/Desktop/savename.txt (
-		set /P c=Save detected. Would you like to load it?[Y/N]
-			if /I "%c%" EQU "Y" goto :saveloader
-			if /T "%c%" EQU "N" goto :choice
-			goto :saveDetectorName
-			) else (
-			goto :noName )
-				:saveloader
-					set /p save=<savefile.txt
-					set /p name=<savename.txt
-					goto :%save%
+goto :name
 
 :name
-set /P Player1= What is your name? 
-goto :confirmName
+	set /P Player1= What is your name? 
+	goto :confirmName
 :confirmName
 	set /P c=Your name is %Player1%, is this correct?[Y/N] 
 	if /I "%c%" EQU "Y" goto :choice
@@ -38,11 +19,6 @@ goto :confirmName
 	goto :confirmName
 
 :choice
-	set savelevel=choice
-	Set var=6
-	@echo %savelevel% 1)questlightsave.txt
-
-	For /f "tokens*" %%i in (questlightsave.txt) do @echo %%i
 	set /P c=You wake up in a grassy plains area. You see a house, a forest, and a cave. Where do you go first?[House/Forest/Cave] 
 	if /I "%c%" EQU "House" goto :house1
 	if /I "%c%" EQU "Forest" goto :forest1
@@ -50,7 +26,6 @@ goto :confirmName
 	goto :choice
 
 	:house1
-		set savelevel=house1
 		set /P c=You go to the house. Inside, you find some food, a broom, and someone sleeping. What do you do?[Food/Broom/Wake] 
 		if /I "%c%" EQU "Food" goto :eat1Texture
 		if /I "%c%" EQU "Broom" goto :takeWeaponBroom1Texture
@@ -73,13 +48,11 @@ goto :confirmName
 				echo /                       \
 				goto eat1
 					:eat1
-						set savelevel=eat1
 						set /P c=You eat the food lying on the table. As you eat it, the snores of the man in the bed get quieter and quieter. It seems like he is waking up. What do you do?[Run/Stay] 
 						if /I "%c%" EQU "Run" goto :run1
 						if /I "%c%" EQU "Stay" goto :humanFight1
 						goto :eat1
 							:run1
-								set savelevel=run1
 								set /P c=You run out of the house into the meadow with some food. You see a forest, a cave, the house you went to, and a rabbit. What do you do?[Forest/Cave/Hunt] 
 								if /I "%c%" EQU "Hunt" goto :rabbitFight1Texture
 								if /I "%c%" EQU "Cave" goto :cave2:
@@ -109,7 +82,6 @@ goto :confirmName
 										echo		HP  [][]-  SUP      
 										goto :rabbitFight1
 											:rabbitFight1
-												set savelevel=rabbitFight1
 												set /P c=You sneak up on the rabbit. You attack it, doing 10 damage. What do you do now?[Attack/Defend] %Player1% HP 100 
 												if /I "%c%" EQU "Attack" goto :rabbitAttack1Texture
 												if /I "%c%" EQU "Defend" goto :rabbitDefend1Texture
@@ -222,13 +194,11 @@ goto :confirmName
 																										echo		HP  ---  DEAD
 																										goto rabbitAttack3
 																											:rabbitAttack3
-																												set savelevel=rabbitattack3
 																												set /P c=You killed the rabbit! In your inventory is now: Assorted Fruits, and Raw Rabbit. What now?[Forest/Cave]
 																												if /I "%c%" EQU "Forest" goto :forest2
 																												if /I "%c%" EQU "Cave" goto :cave2
 																												goto :rabbitAttack3
 																													:forest2
-																														set savelevel=forest2
 																														set /P c=As you go into the forest, the sun begins to set. You see quite a few sturdy sticks that could make a shelter in the woods. You also see some very delicious looking berries. What should you do now?[Shelter/Gather] 
 																														if /I "%c%" EQU "Shelter" goto :prebuild1
 																														if /I "%c%" EQU "Gather" goto :gather2
@@ -253,27 +223,120 @@ goto :confirmName
 																																				if /I "%c%" EQU "Fire" goto :build2texture
 																																				if /I "%c%" EQU "Sleep" goto :sleep1
 																																				goto :build1
-																						:build2texture
-																							echo ///////;\          
-																							echo //////\;.\         
-																							echo /////\.;\.\               /
-																							echo ////\.\;.\.\            _/\
-																							echo ///\.\.;\.\.\          /   \_
-																							echo //\.\.\;.\.\.\      __/_____ \____
-																							echo /  \.\.;\.\.\.\    /\/\/\/\/\/\/\/\
-																							echo -___---;--------   \______________/
-																							goto :build2
-																								:build2
-																									set savelevel=build2
-																									set /P c=You built a fire pit, and light a fire. Congrats! Your building skill is now level 1! You can now build Decent-Quality buildings and upgrades! [Stats: (Skills: Building: Level 1: Amateur Stickpiler []---------)] What do you do now? [Sleep] 
-																									if /I "%c%" EQU "Sleep" goto :sleep2
-																									goto :build2
-																									:sleep2
-																										set /P c=You go to sleep in %Shelter1Name%. The fire feels warm as you go to sleep. When you wake up, the fire is still there, but very dim. Around you you see a stick, the berries you saw yesterday, and %Shelter1Name%. [Stick/Berries/Upgrade] 
-																										if /I "%c%" EQU "Stick" goto :stick1
-																										
-																										
-																										goto :sleep2
+																																					:build2texture
+																																						echo ///////;\          
+																																						echo //////\;.\         
+																																						echo /////\.;\.\               /
+																																						echo ////\.\;.\.\            _/\
+																																						echo ///\.\.;\.\.\          /   \_
+																																						echo //\.\.\;.\.\.\      __/_____ \____
+																																						echo /  \.\.;\.\.\.\    /\/\/\/\/\/\/\/\
+																																						echo -___---;--------   \______________/
+																																						goto :build2
+																																							:build2
+																																								set savelevel=build2
+																																								set /P c=You built a fire pit, and light a fire. Congrats! Your building skill is now level 1! You can now build Decent-Quality buildings and upgrades! [Stats: (Skills: Building: Level 1: Amateur Stickpiler []---------)] What do you do now? [Sleep] 
+																																								if /I "%c%" EQU "Sleep" goto :sleep2
+																																								goto :build2
+																																								:sleep2
+																																									set /P c=You go to sleep in %Shelter1Name%. The fire feels warm as you go to sleep. When you wake up, the fire is still there, but very dim. Around you you see a stick, the berries you saw yesterday, and %Shelter1Name%. [Stick/Berries/Upgrade] 
+																																									if /I "%c%" EQU "Stick" goto :stick1
+																																									if /I "%c%" EQU "Berries" goto :gather3
+																																									if /I "%c%" EQU "Upgrade" goto :upgrade1
+																																									goto :sleep2
+																																										:upgrade1
+																																											set /P c=So you decided to work on your shelter. What exactly would you like to upgrade? [Roof/Ground]
+																																											if /I "%c%" EQU "roof" goto :upgradeRoof1
+																																											if /I "%c%" EQU "ground" goto :upgradeGround1
+																																											goto :upgrade1
+																																												:upgradeGround1
+																																													set /P c=You now have a suitable ground! There is a Fox. What now? [Hunt/Gather/Upgrade Roof]
+																																													if /I "%c%" EQU "hunt" goto :hunt1
+																																													if /I "%c%" EQU "gather" goto :gather4
+																																													if /I "%c%" EQU "upgrade roof" goto :upgradeRoof1
+																																													goto :upgradeground1
+																																														:upgradeRoof2
+																																															set /P c=You upgraded the roof! What would you like to do now?
+																																															if /I "%c%" EQU "gather" goto :gather5
+																																															if /I "%c%" EQU "hunt" goto :hunt2
+																																															if /I "%c%" EQU "look at %Shelter1Name%" goto :lookAtShelter1
+																																																:lookAtShelter1
+																																																	echo         /\  _
+																																																	echo        /--\//
+																																																	echo       /----/
+																																																	echo      /....-_\
+																																																	echo     /-.[].[_]\
+																																																	echo    /--. ..----\
+																																																	echo   /---.  .-----\
+																																																	echo   -   ----------
+																																																	pause
+																																																	goto :upgradeRoof2
+																																												:upgradeRoof1
+																																													set /P c=You upgraded the roof! What would you like to do now?
+																																													if /I "%c%" EQU "gather" goto :gather6
+																																													if /I "%c%" EQU "upgrade ground" goto :upgradeGround2
+																																													goto :upgraderoof1
+																																														:upgradeGround2
+																																															set /P c=You now have a suitable ground! There is a Fox. What now? [Hunt/Gather/Look at %Shelter1Name%]
+																																															if /I "%c%" EQU "hunt" goto :hunt1
+																																															if /I "%c%" EQU "gather" goto :gather5
+																																															if /I "%c%" EQU "look at %Shelter1Name%" goto :lookAtShelter2
+																																															goto :upgradeground1
+																																																:lookAtShelter2
+																																																	echo         /\  _
+																																																	echo        /--\//
+																																																	echo       /----/
+																																																	echo      /....-_\
+																																																	echo     /-.[].[_]\
+																																																	echo    /--. ..----\
+																																																	echo   /---.  .-----\
+																																																	echo   -   ----------
+																																																	pause
+																																																	goto :upgradeGround2
+																																																		:gather5
+																																																			set /P c=You go and gather the berries you saw last night. They look, and smell delicious. You grab 50 berries. Eat one?[Y/N]
+																																																			if /I "%c%" EQU "Y" goto :eat4
+																																																			if /I "%c%" EQU "N" goto :noEat1
+																																																			goto :gather5
+																																																				:eat4
+																																																					set /P c=You eat the berry. Later, you start to say "Just one more". You ate all of the berries. Well, at least it was very filling. You are starting to feel sleepy now, what do you do? [Nap/Explore]
+																																																					if /I "%c%" EQU "Nap" goto :nap1
+																																																					if /I "%c%" EQU "Explore" goto :exploreForest1
+																																																					goto :eat4
+																																																						:nap1
+																																																							echo You decide to take a nap in %Shelter1Name%.
+																																																							pause
+																																																							goto :wakeUpNap1
+																																																						:exploreForest1
+																																																							set /P c=You decided you want to explore the forest. Which direction do you want to go? [N/S/E/W]
+																																																							if /I "%c%" EQU "N" goto :exploreNorthFromForest1
+																																																							if /I "%c%" EQU "S" goto :exploreSouthFromForest1
+																																																							if /I "%c%" EQU "E" goto :exploreEastFromForest1
+																																																							if /I "%c%" EQU "W" goto :exploreWestFromForest1
+																																																							goto :exploreForest1
+																																																				:noEat1
+																																																					set /P c=You decided that you wouldn't eat a berry yet. After going back to %Shelter1Name%, what do you do? [Store Berries/Explore]
+																																																					if /I "%c%" EQU "Store Berries" goto :storeBerries1
+																																																					if /I "%c%" EQU "Explore" goto :exploreForest2
+																																																					goto :noEat1
+																																																						:storeBerries1
+																																																							set /P c=Where do you want to store the berries? [Bush/%Shelter1Name%/Tree]
+																																																							if /I "%c%" EQU "Bush" goto :storeInBush1
+																																																							if /I "%c%" EQU "%Shelter1Name%" goto :storeInHouse1
+																																																							if /I "%c%" EQU "Tree" goto :storeInTree1
+																																																							goto :storeBerries1
+																																																						:exploreForest2
+																																																							set /P c=You decided you want to explore the forest. Which direction do you want to go? [N/S/E/W]
+																																																							if /I "%c%" EQU "N" goto :exploreNorthFromForest2
+																																																							if /I "%c%" EQU "S" goto :exploreSouthFromForest2
+																																																							if /I "%c%" EQU "E" goto :exploreEastFromForest2
+																																																							if /I "%c%" EQU "W" goto :exploreWestFromForest2
+																																																							goto :exploreForest2
+																																										:gather3
+																																											set /P c=You go and gather the berries you saw last night. They look, and smell delicious. You grab 50 berries. Eat one?[Y/N]
+																																											if /I "%c%" EQU "Y" goto :eat3
+																																											if /I "%c%" EQU "N" goto :day2
+																																											goto :gather3
 																						:shelterSpecs1
 																							echo %Shelter1Name%'s Specs
 																							pause
@@ -292,42 +355,6 @@ goto :confirmName
 																							if /I "%c%" EQU "Forage" goto :gather3
 																							if /I "%c%" EQU "Upgrade" goto :upgrade1
 																							goto :sleep1
-																										:upgrade1
-																										set /P c=So you decided to work on your shelter. What exactly would you like to upgrade? [Roof/Ground]
-																										if /I "%c%" EQU "roof" goto :upgraderoof1
-																										if /I "%c%" EQU "ground" goto :upgradeground1
-																										goto :upgrade1
-																											:upgradeground1
-																											set /P c=You now have a suitable ground! There is a Fox. What now? [hunt/gather/upgrade roof]
-																											if /I "%c%" EQU "hunt" goto :death4
-																											if /I "%c%" EQU "gather" goto :gather4
-																											if /I "%c%" EQU "upgrade roof" goto :upgradeRoof1
-																											goto :upgradeground1
-																												:upgradeRoof1
-																												set /P c=You now have a suitable ground! There is a Fox. What now? [hunt/gather/upgrade ground]
-																												if /I "%c%" EQU "upgrade ground" goto :upgradeground2
-																												if /I "%c%" EQU "hunt" goto :death4
-																												if /I "%c%" EQU "gather" goto :gather3
-																												goto :upgraderoof1
-																													:death4
-																													set /P c=as you get closer to the fox, you see it's frothing at the mouth. As you examine it, it jumps up and bites you. Try again? [Y/N]
-																													if /I "%c%" EQU "Y" goto :upgradeRoof1
-																													:death4texture
-																														echo  __________
-																														echo /          \
-																														echo .   RIP    .
-																														echo .          .
-																														echo . %Player1%
-																														echo .          .
-																														echo .  Rabies  .
-																														echo .          .
-																														echo ^^^^^^^^^^^^
-																														goto :death4
-																													:gather3
-																													set /P c=You go and gather the berries you saw last night. They look, and smell delicious. You grab 50 berries. Eat one?[Y/N]
-																													if /I "%c%" EQU "Y" goto :eat3
-																													if /I "%c%" EQU "N" goto :day2
-																													goto :gather3
 																												:day2
 																												rem NOT DONE, WIP
 																													set /P c=You decided that you wouldn't eat a berry yet. After going back to %Shelter1Name%, what do you do? (WIP)
@@ -373,7 +400,7 @@ goto :confirmName
 																goto :rabbitDefend2
 					:takeWeaponBroom1Texture
 					echo               /---(
-					echo ~~~~~~~~~~~~~(----(
+					echo ~~~~~~~~~~~~~(    (
 					echo               \---(
 					goto :takeWeaponBroom1
 					:takeWeaponBroom1
@@ -597,12 +624,10 @@ goto :confirmName
 																			if /I "%c%" EQU "Map" goto :Forest2
 																			goto :run2
 																				:cave2
-																				set /P c=in the cave, you find a  Fox, and some berries. What would you like to do? [Hunt\Harvest]
-																				if /I "%c%" EQU "fox" goto :fox1
-																				if /I "%c%" EQU "Berries" goto :berries1
-																				goto :cave2
-																					:fox1
-																					set /P c=You 
+																				set /P c=
+																				if /I "%c%" EQU "Cave" goto :cave2
+																				if /I "%c%" EQU "Map" goto :Forest2
+																				goto :run2
 					:forest1
 				set /P c=You walk into the forest. After awhile, you see a clearing. In the clearing, you see a knife, a deer, and some berries. What do you do?[Hunt/Gather]
 				if /I "%c%" EQU "Hunt" goto :deerFight1Texture
