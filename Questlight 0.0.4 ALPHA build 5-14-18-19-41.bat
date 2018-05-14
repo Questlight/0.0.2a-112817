@@ -1,6 +1,6 @@
 @echo off
 color 6f
-title Questlight 0.0.3 ALPHA
+title Questlight 0.0.4 ALPHA
 echo Welcome to Questlight!
 echo/
 echo Made by N3, version 0.0.4 ALPHA
